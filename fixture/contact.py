@@ -394,5 +394,19 @@ class ContactHelper:
                     all_phones.append(phone.split("\n"))
             return all_phones
 
+    def clear(self, phone):
+        return re.sub("[() -]", "", phone)
 
 
+    def merge_phones_like_on_home_page(self, contact):
+        return "\n".join(filter(lambda x: x != "",
+                                (map(lambda x: self.clear(x),
+                                     filter(lambda x: x is not None,
+                                            [contact.home_tel, contact.work_tel, contact.mobile_tel,
+                                             contact.secondary_tel])))))
+
+
+    def merge_emails_like_on_home_page(self, contact):
+        return "\n".join(filter(lambda x: x != "",
+                                    filter(lambda x: x is not None,
+                                           [contact.email, contact.email2, contact.email3])))

@@ -19,8 +19,8 @@ def clear(s):
     return re.sub("[() -]", "", s)
 
 
-def merge_phones_like_on_home_page(contact):
+def merge_phones_like_on_home_page(self, contact):
     return "\n".join(filter(lambda x: x != "",
-                            map(lambda x: clear(x),
+                            (map(lambda x: self.clear(x),
                                 filter(lambda x: x is not None,
-                                       [contact.home_tel, contact.work_tel, contact.mobile_tel, contact.secondary_tel]))))
+                                       [contact.home_tel, contact.work_tel, contact.mobile_tel, contact.secondary_tel])))))
