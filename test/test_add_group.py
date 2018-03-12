@@ -13,8 +13,8 @@ def app(request):
 
 
 def test_add_group(app):
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     app.create_group(Group(name="Group1", header="Grouplogo", footer="Groupcomment"))
-    app.logout()
+    app.session.logout()
 
 
