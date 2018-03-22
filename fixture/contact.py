@@ -172,3 +172,9 @@ class ContactHelper:
     def count(self):
         wd = self.app.wd
         return len(wd.find_elements_by_name("selected[]"))
+
+
+    def contacts_page_is_opened(self):
+        wd = self.app.wd
+        if not (wd.current_url.endswith("/index.php") and len(wd.find_elements_by_xpath("//div[@id='content']/form[2]/div[1]/input")) > 0):
+            wd.find_element_by_link_text("home").click()
