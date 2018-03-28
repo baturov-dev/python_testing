@@ -82,6 +82,7 @@ class ContactHelper:
         wd.find_element_by_name("notes").send_keys(group.notes)
         # enter new contact
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        self.contact_cache = None
 
 
     def delete_first_contact(self):
@@ -92,6 +93,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         #close the dialog window
         wd.switch_to_alert().accept()
+        self.contact_cache = None
 
 
     def modify_first_contact(self, group):
@@ -170,6 +172,7 @@ class ContactHelper:
         wd.find_element_by_name("notes").send_keys(group.notes)
         #submit contact edition
         wd.find_element_by_name("update").click()
+        self.contact_cache = None
 
 
     def count(self):
@@ -183,14 +186,18 @@ class ContactHelper:
             wd.find_element_by_link_text("home").click()
 
 
+    contact_cache = None
+
+
     def get_contact_list(self):
-        wd = self.app.wd
-        contacts = []
-        for element in wd.find_elements_by_name("entry"):
-            td = element.find_elements_by_tag_name("td")
-            first = td[2].text
-            last = td[1].text
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(Contact(firstname=first, lastname=last,  id=id))
-        return contacts
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.contact_cache = []
+            for element in wd.find_elements_by_name("entry"):
+                td = element.find_elements_by_tag_name("td")
+                first = td[2].text
+                last = td[1].text
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.contact_cache.append(Contact(firstname=first, lastname=last,  id=id))
+        return list(self.contact_cache)
 
