@@ -34,23 +34,30 @@ class GroupHelper:
         self.return_to_groups_page()
         self.group_cache = None
 
-
     def delete_first_group(self):
+        self.delete_group_by_index(0)
+
+
+    def delete_group_by_index(self, index):
         wd = self.app.wd
         self.open_groups_page()
-        #select first group
-        wd.find_element_by_name("selected[]").click()
+        #select group by index
+        wd.find_elements_by_name("selected[]")[index].click()
         #submit deletion
         wd.find_element_by_name("delete").click()
         self.return_to_groups_page()
         self.group_cache = None
 
 
-    def modify_first_group(self, group):
+    def modify_first_group(self):
+        self.modify_group_by_index(0)
+
+
+    def modify_group_by_index(self, index, group):
         wd = self.app.wd
         self.open_groups_page()
-        #select first group
-        wd.find_element_by_name("selected[]").click()
+        #select group by index
+        wd.find_elements_by_name("selected[]")[index].click()
         #select editing
         wd.find_element_by_name("edit").click()
         #editing the group
