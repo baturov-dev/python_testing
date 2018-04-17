@@ -50,7 +50,8 @@ class GroupHelper:
 
 
     def modify_first_group(self):
-        self.modify_group_by_index(0)
+        wd = self.app.wd
+        wd.modify_group_by_index(0)
 
 
     def modify_group_by_index(self, index, group):
