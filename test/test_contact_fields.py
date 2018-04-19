@@ -7,4 +7,3 @@ def test_contact_fields(app):
     assert contact_from_home_page.firstname == contact_from_edit_page.firstname
     assert contact_from_home_page.lastname == contact_from_edit_page.lastname
     assert contact_from_home_page.address == contact_from_edit_page.address
-    
