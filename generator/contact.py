@@ -2,13 +2,13 @@ from model.contact import Contact
 import random
 import string
 import os.path
-import json
+import jsonpickle
 from random import randint
 import getopt
 import sys
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of groups", "file"])
+    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of contacts", "file"])
 except getopt.GetoptError as err:
     getopt.usage()
     sys.exit(2)
@@ -31,7 +31,7 @@ def random_string(prefix, maxlen):
 def random_phone():
     return "+" + str(randint(1,10)) + "-" + "".join([random.choice(string.digits) for i in range(3)]) + "-" + \
            "".join([random.choice(string.digits) for i in range(3)]) + "-" + "".join([random.choice(string.digits) for i in range(2)]) + \
-            "-" + "".join([random.choice(string.digits) for i in range(n)])
+            "-" + "".join([random.choice(string.digits) for i in range(2)])
 
 def random_email():
     symbols = string.ascii_letters + string.digits
@@ -49,4 +49,5 @@ testdata = [Contact(firstname=random_string("name", 10), middlename=random_strin
 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
 
 with open(file, "w") as out:
-    out.write(json.dumps(testdata, default=lambda x: x.__dict__, indent=2))
+    jsonpickle.set_encoder_options("json", indent=2)
+    out.write(jsonpickle.encode(testdata))
