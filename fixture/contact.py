@@ -371,3 +371,28 @@ class ContactHelper:
         mobile_tel = re.search("M: (.*)", text).group(1)
         secondary_tel = re.search("P: (.*)", text).group(1)
         return Contact(home_tel=home_tel, mobile_tel=mobile_tel, work_tel=work_tel, secondary_tel=secondary_tel)
+
+
+    def get_emails_ui(self):
+            wd = self.app.wd
+            all_emails = []
+            for contact in wd.find_elements_by_name("entry"):
+                cells = contact.find_elements_by_tag_name("td")
+                email = cells[4].text
+                if email != '':
+                    all_emails.append(email.split("\n"))
+            return all_emails
+
+
+    def get_phones_ui(self):
+            wd = self.app.wd
+            all_phones = []
+            for contact in wd.find_elements_by_name("entry"):
+                cells = contact.find_elements_by_tag_name("td")
+                phone = cells[5].text
+                if phone != '':
+                    all_phones.append(phone.split("\n"))
+            return all_phones
+
+
+

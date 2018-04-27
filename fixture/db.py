@@ -50,3 +50,30 @@ class DbFixture:
     def destroy(self):
         self.connection.close()
 
+
+    def get_emails_list(self):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select email, email2, email3 from addressbook where deprecated = '0000-00-00 00:00:00'")
+            for row in cursor:
+                for item in row:
+                    if item != '':
+                        list.append(item)
+        finally:
+            cursor.close()
+            return list
+
+
+    def get_phones_list(self):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select home, mobile, work from addressbook where deprecated = '0000-00-00 00:00:00'")
+            for row in cursor:
+                for item in row:
+                    if item != '':
+                        list.append(item.replace("-", ""))
+        finally:
+            cursor.close()
+            return list
