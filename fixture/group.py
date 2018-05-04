@@ -67,9 +67,9 @@ class GroupHelper:
 
 
 
-    def modify_first_group(self):
+    def modify_first_group(self, group):
         wd = self.app.wd
-        wd.modify_group_by_index(0)
+        wd.modify_group_by_index(0, group)
 
 
     def modify_group_by_index(self, index, group):

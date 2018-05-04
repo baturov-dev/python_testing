@@ -122,9 +122,9 @@ class ContactHelper:
         wd.find_element_by_id("%s" % id).click()
 
 
-    def modify_first_contact(self):
+    def modify_first_contact(self, contact):
         wd = self.app.wd
-        wd.modify_contact_by_index(0)
+        wd.modify_contact_by_index(0, contact)
 
 
     def edit_contact(self):
@@ -137,7 +137,7 @@ class ContactHelper:
         wd.find_element_by_css_selector('input[value="id"]').click()
 
 
-    def modify_contact_by_index(self, index, group):
+    def modify_contact_by_index(self, group):
         wd = self.app.wd
         #select contact editing
         self.edit_contact()
